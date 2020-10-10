@@ -6,6 +6,16 @@
 </head>
 <body>
 <div>
+    <h4>Add product</h4>
+    <form action="#" th:action="@{/products/add}" th:object="${product}" method="post">
+        <p>Name: <input type="text" th:field="*{name}"/></p>
+        <p>Quantity: <input type="number" th:field="*{quantity}" th:value="*{quantity}"/></p>
+        <p>Cost: <input type="text" th:field="*{cost}"/></p>
+        <p>Owner: <input type="text" th:field="*{owner}" th:value="*{owner}"/></p>
+        <input type="submit" th:value="Add">
+    </form>
+</div>
+<div>
     <table>
         <thead>
         <tr>

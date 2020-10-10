@@ -12,7 +12,6 @@ import javax.persistence.Id;
 @ToString
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
 public class Product {
 
     @Id
@@ -22,4 +21,9 @@ public class Product {
     private Byte quantity;
     private String cost;
     private String owner;
+
+    public Product() {
+        quantity = 1;
+        owner = "Common";
+    }
 }
