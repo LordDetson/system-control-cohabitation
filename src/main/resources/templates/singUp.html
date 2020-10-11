@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+</head>
+<body>
+<div th:if="${message != null}">
+    <span th:text="${message}"/>
+</div>
+<div>
+    <form action="#" th:action="@{/singup}" th:object="${user}" method="post">
+        <label for="firstName">First name:</label>
+        <input id="firstName" type="text" th:field="*{firstName}" th:value="*{firstName}">
+        <br>
+        <label for="lastName">Last name:</label>
+        <input id="lastName" type="text" th:field="*{lastName}" th:value="*{lastName}">
+        <br>
+        <label for="username">Username:</label>
+        <input id="username" type="text" th:field="*{username}" th:value="*{username}">
+        <br>
+        <label for="password">Password:</label>
+        <input id="password" type="password" th:field="*{password}">
+        <br>
+        <label for="passwordConfirm">Password confirm:</label>
+        <input id="passwordConfirm" type="password" th:field="*{passwordConfirm}">
+        <br>
+        <input type="submit" value="Sing Up">
+    </form>
+</div>
+</body>
+</html>
