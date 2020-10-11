@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Log in with your account</title>
+</head>
+<body>
+<div th:if="${allUsers.isEmpty()}">
+    <p>No Users Available</p>
+</div>
+<div th:unless="${allUsers.isEmpty()}">
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Fullname</th>
+            <th>Username</th>
+            <th>Roles</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${allUsers}">
+            <td><span th:text="${user.id}"/></td>
+            <td><span th:text="${user.getFullName()}"/></td>
+            <td><span th:text="${user.username}"/></td>
+            <td>
+                <th:block th:each="role : ${user.roles}">
+                    <span th:text="${role.name()}"/>
+                </th:block>
+            </td>
+            <td>
+                <button th:action="@{/admin/user(userId = ${user.id}, action = ${'delete'})}">Delete</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
