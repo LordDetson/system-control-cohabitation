@@ -1,32 +1,59 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <th:block th:insert="~{bootstrap/insertStylesheet :: css}"/>
     <title>Registration</title>
 </head>
 <body>
-<div th:if="${message != null}">
-    <span th:text="${message}"/>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1 class="h3 mb-3 font-weight-normal">Registration</h1>
+        </div>
+    </div>
+    <div class="row" th:if="${message != null}">
+        <div class="col">
+            <span th:text="${message}"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <form action="#" th:action="@{/singup}" th:object="${user}" method="post">
+                <div class="form-group row">
+                    <label for="firstName" class="col-sm-2 col-form-label">First name:</label>
+                    <div class="col-sm-10">
+                        <input id="firstName" class="form-control" type="text" th:field="*{firstName}" th:value="*{firstName}" required autofocus>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="lastName" class="col-sm-2 col-form-label">Last name:</label>
+                    <div class="col-sm-10">
+                        <input id="lastName" class="form-control" type="text" th:field="*{lastName}" th:value="*{lastName}" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="username" class="col-sm-2 col-form-label">Username:</label>
+                    <div class="col-sm-10">
+                        <input id="username" class="form-control" type="text" th:field="*{username}" th:value="*{username}" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="password" class="col-sm-2 col-form-label">Password:</label>
+                    <div class="col-sm-10">
+                        <input id="password" class="form-control" type="password" th:field="*{password}" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="passwordConfirm" class="col-sm-2 col-form-label">Password confirm:</label>
+                    <div class="col-sm-10">
+                        <input id="passwordConfirm" class="form-control" type="password" th:field="*{passwordConfirm}" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-lg btn-primary btn-block">Sing Up</button>
+            </form>
+        </div>
+    </div>
 </div>
-<div>
-    <form action="#" th:action="@{/singup}" th:object="${user}" method="post">
-        <label for="firstName">First name:</label>
-        <input id="firstName" type="text" th:field="*{firstName}" th:value="*{firstName}">
-        <br>
-        <label for="lastName">Last name:</label>
-        <input id="lastName" type="text" th:field="*{lastName}" th:value="*{lastName}">
-        <br>
-        <label for="username">Username:</label>
-        <input id="username" type="text" th:field="*{username}" th:value="*{username}">
-        <br>
-        <label for="password">Password:</label>
-        <input id="password" type="password" th:field="*{password}">
-        <br>
-        <label for="passwordConfirm">Password confirm:</label>
-        <input id="passwordConfirm" type="password" th:field="*{passwordConfirm}">
-        <br>
-        <input type="submit" value="Sing Up">
-    </form>
-</div>
+<th:block th:insert="~{bootstrap/insertStylesheet :: js}"/>
 </body>
 </html>

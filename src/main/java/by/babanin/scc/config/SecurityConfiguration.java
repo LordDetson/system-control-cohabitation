@@ -27,6 +27,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                     .antMatchers("/singup").not().fullyAuthenticated()
+                    .antMatchers("/css/**").not().fullyAuthenticated()
+                    .antMatchers("/js/**").not().fullyAuthenticated()
                     .antMatchers("/admin/**").hasRole(Role.ADMIN.getAuthority())
                     .anyRequest().authenticated()
                 .and()
