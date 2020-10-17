@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.money.CurrencyUnit;
 import java.util.Collections;
 import java.util.List;
 
@@ -32,13 +33,16 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-    public boolean saveUser(User user) {
+    public boolean saveUser(User user, CurrencyUnit currency) {
         User userFromDB = userRepository.findByUsername(user.getUsername());
         if (userFromDB != null) {
             return false;
         }
         user.setRoles(Collections.singleton(Role.USER));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        if (currency != null) {
+            user.setCurrency(currency);
+        }
         userRepository.save(user);
         return true;
     }

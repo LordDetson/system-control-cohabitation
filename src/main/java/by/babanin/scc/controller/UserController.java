@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.money.Monetary;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -30,6 +32,7 @@ public class UserController {
     private String singUp(
             @ModelAttribute @Valid User user,
             BindingResult bindingResult,
+            HttpServletRequest request,
             Model model
     ) {
         if (bindingResult.hasErrors()) {
@@ -38,7 +41,7 @@ public class UserController {
         if (!user.getPassword().equals(user.getPasswordConfirm())) {
             return revertWithMessage(user, model, "Password not confirmed");
         }
-        if (!userService.saveUser(user)) {
+        if (!userService.saveUser(user, Monetary.getCurrency(request.getLocale()))) {
             return revertWithMessage(user, model, user.getUsername() + " username exist!");
         }
         return "redirect:/login";

@@ -6,14 +6,14 @@
 </head>
 <body>
 <div>
-    <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+    <h1 th:inline="text">Hello [[${fullName}]]!</h1>
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="Sign Out"/>
     </form>
 </div>
 <div>
     <h4>Add product</h4>
-    <form action="#" th:action="@{/products/add}" th:object="${product}" method="post">
+    <form action="#" th:action="@{/products/add}" th:object="${productForm}" method="post">
         <label for="name">Name:</label>
         <input id="name" type="text" th:field="*{name}"/>
         <br>
@@ -48,7 +48,7 @@
             <td><span th:text="${product.id}"/></td>
             <td><span th:text="${product.name}"/></td>
             <td><span th:text="${product.quantity}"/></td>
-            <td><span th:text="${product.cost}"/></td>
+            <td><span th:text="${product.getFormattedCost(#httpServletRequest.getLocale())}"/></td>
             <td><span th:text="${product.owner}"/></td>
         </tr>
         </tbody>

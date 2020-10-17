@@ -1,10 +1,16 @@
 package by.babanin.scc.domain;
 
+import by.babanin.scc.repository.converter.MoneyConverter;
 import lombok.*;
+import org.javamoney.moneta.Money;
 
+import javax.money.format.MonetaryFormats;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.Locale;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -12,18 +18,20 @@ import javax.persistence.Id;
 @ToString
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class Product {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private UUID id;
     private String name;
     private Byte quantity;
-    private String cost;
+
+    @Convert(converter = MoneyConverter.class)
+    private Money cost;
     private String owner;
 
-    public Product() {
-        quantity = 1;
-        owner = "Common";
+    public String getFormattedCost(Locale locale) {
+        return MonetaryFormats.getAmountFormat(locale).format(getCost());
     }
 }

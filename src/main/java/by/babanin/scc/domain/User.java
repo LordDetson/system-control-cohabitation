@@ -1,9 +1,11 @@
 package by.babanin.scc.domain;
 
+import by.babanin.scc.repository.converter.CurrencyConverter;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.money.CurrencyUnit;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Collection;
@@ -44,6 +46,9 @@ public class User implements UserDetails {
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(value = EnumType.STRING)
     private Set<Role> roles;
+
+    @Convert(converter = CurrencyConverter.class)
+    private CurrencyUnit currency;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
